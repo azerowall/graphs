@@ -45,12 +45,12 @@ fn main() {
     println!("Cn-1:\n{}", c_m1);
     println!("Cn:\n{}", c);
 
-    let dot_file = "/tmp/out.dot";
-    let svg_file = dot_file.to_string() + ".svg";
+    let dot_file = std::env::temp_dir().join("out.dot");
+    let svg_file = dot_file.clone().with_extension("dot.svg");
 
-    let mut fout = std::fs::File::create(dot_file).unwrap();
+    let mut fout = std::fs::File::create(dot_file.clone()).unwrap();
     g.to_dot(&mut fout).unwrap();
 
-    Command::new("dot").args(&[dot_file, "-Tsvg", "-Osvg"]).output().unwrap();
+    Command::new("dot").args(&[dot_file.to_str().unwrap(), "-Tsvg", "-Osvg"]).output().unwrap();
     Command::new("xdg-open").args(&[svg_file]).output().unwrap();
 }
