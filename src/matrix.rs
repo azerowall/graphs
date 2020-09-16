@@ -57,7 +57,7 @@ where
         mat
     }
 
-    pub fn degree(&self, deg: usize) -> Self {
+    pub fn pow(&self, deg: usize) -> Self {
         let mut res = self.clone();
         for _ in 0..deg-1 {
             res = res.mul(self);

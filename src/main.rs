@@ -28,14 +28,14 @@ fn main() {
     }
 
     let path_len = 3;
-    println!("A^k:\n{}", adj_mat.degree(path_len));
+    println!("A^k:\n{}", adj_mat.pow(path_len));
 
     let mut c_m1 = adj_mat.clone();
     for i in 2..g.vertex_count() {
-        c_m1 += &adj_mat.degree(i);
+        c_m1 += &adj_mat.pow(i);
     }
     let mut c = c_m1.clone();
-    c += &adj_mat.degree(g.vertex_count());
+    c += &adj_mat.pow(g.vertex_count());
     println!("Cn-1:\n{}", c_m1);
     println!("Cn:\n{}", c);
 
