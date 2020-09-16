@@ -99,15 +99,14 @@ impl str::FromStr for Graph {
         let adj_list: Vec<Vec<usize>> =
             s
             .lines()
+            .filter(|line| !line.trim().is_empty())
             .map(|line| {
                 line
-                    .split(' ')
-                    .filter(|num_str| !num_str.is_empty())
-                    .map(|num_str| num_str.parse::<usize>().unwrap())
-                    .collect()
-            }).collect();
-
-
+                    .split_ascii_whitespace()
+                    .map(|num_str| num_str.parse::<usize>())
+                    .collect::<Result<Vec<_>, Self::Err>>()
+            }).collect::<Result<Vec<_>, Self::Err>>()?;
+            
         Ok(Self::from_adjacency_list(adj_list))
     }
 }
