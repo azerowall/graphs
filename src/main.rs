@@ -6,6 +6,7 @@ mod graph;
 use graph::Graph;
 
 
+
 fn main() {
     let g: Graph = "
         1 2
@@ -27,7 +28,11 @@ fn main() {
         println!("{:>9} {:>9} {:>9} {:>9}", v, g.degree(v), g.indegree(v), g.outdegree(v));
     }
 
-    let path_len = 3;
+    println!("Path length:");
+    let mut path_len = String::new();
+    std::io::stdin().read_line(&mut path_len).unwrap();
+    let path_len = path_len.trim().parse().unwrap();
+
     println!("A^k:\n{}", adj_mat.pow(path_len));
 
     let mut c_m1 = adj_mat.clone();
@@ -36,6 +41,7 @@ fn main() {
     }
     let mut c = c_m1.clone();
     c += &adj_mat.pow(g.vertex_count());
+    println!("Vertexes count: {}", g.vertex_count());
     println!("Cn-1:\n{}", c_m1);
     println!("Cn:\n{}", c);
 
